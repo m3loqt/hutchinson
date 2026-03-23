@@ -4,6 +4,9 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+/** Same asset as hero background — used by the glass card frost layer (blur via filter, not backdrop-filter). */
+const HERO_IMAGE_SRC = "/hero.png";
+
 export default function HomePage() {
   const navRef = useRef<HTMLElement | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
@@ -95,13 +98,13 @@ export default function HomePage() {
             <a href="#new-here">New Here?</a>
           </li>
           <li>
-            <a href="#watch">Watch</a>
+            <a href="#daily-bread">Daily Bread</a>
           </li>
           <li>
             <a href="#engage">Ministries</a>
           </li>
           <li>
-            <a href="#legacy">Our Story</a>
+            <a href="#mission">Our Story</a>
           </li>
           <li>
             <a
@@ -144,8 +147,8 @@ export default function HomePage() {
               </a>
             </li>
             <li>
-              <a href="#watch" className="drawer-link">
-                Watch
+              <a href="#daily-bread" className="drawer-link">
+                Daily Bread
               </a>
             </li>
             <li>
@@ -154,12 +157,17 @@ export default function HomePage() {
               </a>
             </li>
             <li>
-              <a href="#legacy" className="drawer-link">
+              <a href="#mission" className="drawer-link">
                 Our Story
               </a>
             </li>
             <li>
-              <a href="#give" className="drawer-link">
+              <a
+                href="https://pushpay.com/g/hutchinsonmbc"
+                className="drawer-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Give
               </a>
             </li>
@@ -188,7 +196,7 @@ export default function HomePage() {
       <section className="hero" id="top" aria-label="Welcome">
         <div className="hero-bg">
           <img
-            src="/hero.png"
+            src={HERO_IMAGE_SRC}
             alt="Sanctuary bathed in warm golden light"
             width={1920}
             height={1080}
@@ -211,37 +219,46 @@ export default function HomePage() {
           </div>
 
           <div className="hero-glass">
-            <p className="hero-panel-desc">
-              Rooted in 125 years of faith, community, and the enduring love of God. A new season. The
-              same spirit. You are welcome here.
-            </p>
-            <div className="hero-panel-details">
-              <div className="hero-detail">
-                <span className="hero-detail-label">Sunday Service</span>
-                <span className="hero-detail-value">9:00 AM &amp; 11:00 AM</span>
+            {/* Real glass blur: same photo as hero, fixed to viewport + filter (works when backdrop-filter does not). */}
+            <div
+              className="hero-glass-frost"
+              aria-hidden="true"
+              style={{ backgroundImage: `url(${HERO_IMAGE_SRC})` }}
+            />
+            <div className="hero-glass-tint" aria-hidden="true" />
+            <div className="hero-glass-inner">
+              <p className="hero-panel-desc">
+                Rooted in 125 years of faith, community, and the enduring love of God. A new season. The
+                same spirit. You are welcome here.
+              </p>
+              <div className="hero-panel-details">
+                <div className="hero-detail">
+                  <span className="hero-detail-label">Sunday Service</span>
+                  <span className="hero-detail-value">9:00 AM &amp; 11:00 AM</span>
+                </div>
+                <div className="hero-detail">
+                  <span className="hero-detail-label">Location</span>
+                  <span className="hero-detail-value">860 East Grove St, Montgomery, AL 36104</span>
+                </div>
               </div>
-              <div className="hero-detail">
-                <span className="hero-detail-label">Location</span>
-                <span className="hero-detail-value">860 East Grove St, Montgomery, AL 36104</span>
+              <div className="hero-panel-actions">
+                <a href="#new-here" className="btn-fill">
+                  Join Us Sunday
+                </a>
+                <a
+                  href="https://www.youtube.com/@hmbc860"
+                  className="btn-text hero-panel-btn-text"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="play-ring">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(244,239,230,0.85)" aria-hidden="true">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                  Watch Online
+                </a>
               </div>
-            </div>
-            <div className="hero-panel-actions">
-              <a href="#new-here" className="btn-fill">
-                Join Us Sunday
-              </a>
-              <a
-                href="https://www.youtube.com/@hmbc860"
-                className="btn-text hero-panel-btn-text"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="play-ring">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(244,239,230,0.85)" aria-hidden="true">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </span>
-                Watch Online
-              </a>
             </div>
           </div>
         </div>
@@ -257,7 +274,7 @@ export default function HomePage() {
         </div>
         <div className="reveal reveal-delay-1">
           <p className="mission-quote serif">
-            &ldquo;Striving to maintain a <em>sweet, sweet spirit</em> — equipping saints, reaching the
+            &ldquo;Striving to maintain a <em>sweet, sweet spirit </em> — equipping saints, reaching the
             lost, and feeding the hungry throughout the world.&rdquo;
           </p>
           <p className="mission-body">
@@ -265,141 +282,8 @@ export default function HomePage() {
             Today, under a new season of pastoral leadership, we remain committed to the same calling:
             equipping people to live fully for God and serve fully in the world.
           </p>
-          <a href="#legacy" className="mission-link">
+          <a href="#engage" className="mission-link">
             Learn About Us &nbsp;→
-          </a>
-        </div>
-      </section>
-
-      <section className="watch" id="watch">
-        <div className="reveal">
-          <span className="label">Latest Message</span>
-          <h2 className="watch-heading">
-            Worship that
-            <br />
-            <em>moves</em> you.
-          </h2>
-          <p className="watch-body">
-            Join us each Sunday for a service centered on the Word of God — Spirit-led,
-            thought-provoking, and grounded in Scripture. Watch our latest message or explore the full
-            archive.
-          </p>
-          <a
-            href="https://www.youtube.com/@hmbc860"
-            className="arrow-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View All Messages &nbsp;→
-          </a>
-        </div>
-        <a
-          href="https://www.youtube.com/@hmbc860"
-          className="sermon-card reveal reveal-delay-1"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Watch latest sermon on YouTube: The God Who Restores"
-        >
-          <div className="sermon-thumb">
-            <img
-              src="/sermon.png"
-              alt="Pastor preaching from the pulpit"
-              width={1280}
-              height={720}
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <span className="sermon-duration">42:00</span>
-          <div className="sermon-card-center">
-            <div className="series-label">Current Series</div>
-            <div className="series-title">
-              Rooted &
-              <br />
-              Restored
-            </div>
-          </div>
-          <div className="sermon-play">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <div className="sermon-meta-bar">
-            <div className="s-series">Sermon · March 16, 2025</div>
-            <div className="s-title">The God Who Restores</div>
-            <div className="s-meta">Rev. Cameron R. Thomas · 42 min</div>
-          </div>
-        </a>
-      </section>
-
-      <section className="legacy" id="legacy">
-        <div className="legacy-visual reveal">
-          <img
-            src="/legacy.png"
-            alt="Hands clasped in prayer on a church pew"
-            width={1200}
-            height={800}
-            loading="lazy"
-            decoding="async"
-          />
-          <div className="legacy-year-bg" aria-hidden="true">
-            1900
-          </div>
-          <div className="legacy-visual-inner">
-            <div className="legacy-orb">
-              <div className="vert-line" />
-              <div className="middle-text">125 Years of Faith</div>
-              <div className="vert-line" />
-            </div>
-          </div>
-        </div>
-        <div className="legacy-content">
-          <span className="label reveal">Our Legacy</span>
-          <h2 className="legacy-heading reveal reveal-delay-1">
-            A church that has
-            <br />
-            stood through <em>history.</em>
-          </h2>
-          <p className="legacy-body reveal reveal-delay-2">
-            Founded in 1900 by a group of Black Christians in Montgomery, Alabama, Hutchinson has been
-            more than a church — it has been a refuge, a force for justice, and a home for generations
-            of believers across more than a century.
-          </p>
-
-          <div className="legacy-timeline reveal reveal-delay-2" aria-label="Church history timeline">
-            <div className="timeline-track-h" aria-hidden="true" />
-            <div className="timeline-items">
-              <div className="timeline-item">
-                <div className="timeline-year">1900</div>
-                <p className="timeline-desc">Hutchinson founded — a faithful witness in Montgomery.</p>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-year">1957</div>
-                <p className="timeline-desc">
-                  Church bombed after serving as a Mass Meeting site in the Movement.
-                </p>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-year">1987</div>
-                <p className="timeline-desc">Renamed Hutchinson Missionary Baptist Church (HMBC).</p>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-year">2023</div>
-                <p className="timeline-desc">Rev. Cameron R. Thomas begins as pastor — a new season.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="legacy-callout reveal">
-            <span className="callout-year">1957</span>
-            <p className="callout-text">
-              During the Montgomery Bus Boycott, Hutchinson served as a gathering site for Mass
-              Meetings. Because of its role in the Civil Rights Movement, the church was bombed in the
-              early hours of January 10th — a testament to the cost and courage of its congregation.
-            </p>
-          </div>
-          <a href="#mission" className="arrow-link reveal">
-            Our Mission &nbsp;→
           </a>
         </div>
       </section>
@@ -418,7 +302,12 @@ export default function HomePage() {
           </p>
         </div>
         <div className="engage-cards">
-          <a href="#watch" className="e-card reveal">
+          <a
+            href="https://www.youtube.com/@hmbc860"
+            className="e-card reveal"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span className="e-num">01</span>
             <div className="e-title serif">Worship</div>
             <p className="e-desc">
@@ -436,7 +325,12 @@ export default function HomePage() {
             </p>
             <span className="e-arrow">→</span>
           </a>
-          <a href="#give" className="e-card reveal reveal-delay-2">
+          <a
+            href="https://pushpay.com/g/hutchinsonmbc"
+            className="e-card reveal reveal-delay-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span className="e-num">03</span>
             <div className="e-title serif">Serve</div>
             <p className="e-desc">
@@ -511,40 +405,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="give" id="give">
-        <div className="give-rule" />
-        <div className="give-visual">
-          <img
-            src="/give.png"
-            alt="Generosity that supports the church and community"
-            width={1536}
-            height={1024}
-            loading="lazy"
-            decoding="async"
-          />
+      <section className="daily-bread" id="daily-bread" aria-label="Our Daily Bread">
+        <div className="daily-bread-layout">
+          <div className="daily-bread-verse" aria-hidden="true">
+            <span>Isaiah</span>
+            <strong>58:11</strong>
+          </div>
+
+          <div className="daily-bread-content reveal">
+            <span className="label">Our Daily Bread</span>
+            <h2 className="daily-bread-heading serif">
+              Grace flows quietly through patience. When you stop striving to fix everything, you begin to
+              see how love already surrounds and carries you forward.
+            </h2>
+            <p className="daily-bread-body">
+              Receive personal reflections each morning, short thoughts or verses chosen to calm, inspire,
+              and center you in God&apos;s peace.
+            </p>
+            <a href="#top" className="daily-bread-cta">
+              get daily calm by email
+            </a>
+          </div>
         </div>
-        <p className="give-scripture">
-          &ldquo;Each one must give as he has decided in his heart, not reluctantly or under compulsion,
-          for God loves a cheerful giver.&rdquo;
-        </p>
-        <p className="give-ref">2 Corinthians 9:7</p>
-        <h2 className="give-heading serif">
-          Give generously.
-          <br />
-          Change lives.
-        </h2>
-        <p className="give-sub">
-          Your generosity fuels our mission — from serving the hungry in Montgomery to reaching
-          communities around the world.
-        </p>
-        <a
-          href="https://pushpay.com/g/hutchinsonmbc"
-          className="btn-fill"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Give Online
-        </a>
       </section>
 
       <footer>
@@ -594,7 +476,9 @@ export default function HomePage() {
                 <a href="#engage">Ministries</a>
               </li>
               <li>
-                <a href="#give">Give</a>
+                <a href="https://pushpay.com/g/hutchinsonmbc" target="_blank" rel="noopener noreferrer">
+                  Give
+                </a>
               </li>
             </ul>
           </div>
@@ -605,10 +489,10 @@ export default function HomePage() {
                 <a href="#mission">Our Mission</a>
               </li>
               <li>
-                <a href="#legacy">Our History</a>
+                <a href="#mission">Our History</a>
               </li>
               <li>
-                <a href="#watch">Watch</a>
+                <a href="#daily-bread">Daily Bread</a>
               </li>
               <li>
                 <a href="https://pushpay.com/g/hutchinsonmbc" target="_blank" rel="noopener noreferrer">
