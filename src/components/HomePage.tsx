@@ -1,11 +1,26 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element -- Local assets; can switch to next/image later */
+import {
+  Flame,
+  Globe,
+  GraduationCap,
+  HeartHandshake,
+  Music2,
+  Swords,
+  type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 /** Same asset as hero background — used by the glass card frost layer (blur via filter, not backdrop-filter). */
 const HERO_IMAGE_SRC = "/hero.png";
+
+const PLAN_VISIT_URL =
+  "https://www.google.com/maps/search/?api=1&query=860+East+Grove+Street+Montgomery+AL+36104";
+
+/** Edge-to-edge community strip (left → right): Sunday service, outreach, youth, worship team, fellowship */
+const COMMUNITY_STRIP_IMAGES = ["/1.jpg", "/2.jpg", "/3.jpg", "/5.jpg", "/6.jpg"] as const;
 
 export default function HomePage() {
   const navRef = useRef<HTMLElement | null>(null);
@@ -83,52 +98,54 @@ export default function HomePage() {
   return (
     <>
       <nav id="nav" ref={navRef} aria-label="Primary">
-        <Link href="/" className="nav-logo">
-          <img
-            src="/whitelogo.png"
-            alt="Hutchinson Missionary Baptist Church"
-            width={560}
-            height={122}
-            className="nav-logo-img"
-            decoding="async"
-          />
-        </Link>
-        <ul className="nav-links">
-          <li>
-            <a href="#new-here">New Here?</a>
-          </li>
-          <li>
-            <a href="#daily-bread">Daily Bread</a>
-          </li>
-          <li>
-            <a href="#engage">Ministries</a>
-          </li>
-          <li>
-            <a href="#mission">Our Story</a>
-          </li>
-          <li>
-            <a
-              href="https://pushpay.com/g/hutchinsonmbc"
-              className="nav-cta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Give
-            </a>
-          </li>
-        </ul>
-        <button
-          type="button"
-          className="nav-toggle"
-          ref={toggleRef}
-          aria-expanded="false"
-          aria-controls="nav-drawer-panel"
-          aria-label="Open menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <div className="nav-cluster">
+          <Link href="/" className="nav-logo">
+            <img
+              src="/whitelogo.png"
+              alt="Hutchinson Missionary Baptist Church"
+              width={560}
+              height={122}
+              className="nav-logo-img"
+              decoding="async"
+            />
+          </Link>
+          <ul className="nav-links">
+            <li>
+              <a href="#top">Welcome</a>
+            </li>
+            <li>
+              <a href="#daily-bread">Daily Bread</a>
+            </li>
+            <li>
+              <a href="#mission">Ministries</a>
+            </li>
+            <li>
+              <a href="#mission">Our Story</a>
+            </li>
+          </ul>
+        </div>
+        <div className="nav-actions">
+          <a
+            href={PLAN_VISIT_URL}
+            className="nav-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Plan your visit
+          </a>
+          <button
+            type="button"
+            className="nav-toggle"
+            ref={toggleRef}
+            aria-expanded="false"
+            aria-controls="nav-drawer-panel"
+            aria-label="Open menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </nav>
 
       <div className="nav-drawer" id="nav-drawer" ref={drawerRef} aria-hidden="true">
@@ -142,8 +159,8 @@ export default function HomePage() {
         >
           <ul className="nav-drawer-links">
             <li>
-              <a href="#new-here" className="drawer-link">
-                New Here?
+              <a href="#top" className="drawer-link">
+                Welcome
               </a>
             </li>
             <li>
@@ -152,7 +169,7 @@ export default function HomePage() {
               </a>
             </li>
             <li>
-              <a href="#engage" className="drawer-link">
+              <a href="#mission" className="drawer-link">
                 Ministries
               </a>
             </li>
@@ -161,24 +178,14 @@ export default function HomePage() {
                 Our Story
               </a>
             </li>
-            <li>
-              <a
-                href="https://pushpay.com/g/hutchinsonmbc"
-                className="drawer-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Give
-              </a>
-            </li>
           </ul>
           <a
-            href="https://pushpay.com/g/hutchinsonmbc"
+            href={PLAN_VISIT_URL}
             className="nav-drawer-cta"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Give Online
+            Plan your visit
           </a>
           <p className="nav-drawer-meta">
             860 East Grove Street
@@ -242,8 +249,13 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="hero-panel-actions">
-                <a href="#new-here" className="btn-fill">
-                  Join Us Sunday
+                <a
+                  href={PLAN_VISIT_URL}
+                  className="btn-fill"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Plan your visit
                 </a>
                 <a
                   href="https://www.youtube.com/@hmbc860"
@@ -282,126 +294,237 @@ export default function HomePage() {
             Today, under a new season of pastoral leadership, we remain committed to the same calling:
             equipping people to live fully for God and serve fully in the world.
           </p>
-          <a href="#engage" className="mission-link">
+          <a href="#daily-bread" className="mission-link">
             Learn About Us &nbsp;→
           </a>
         </div>
       </section>
 
-      <section className="engage" id="engage">
-        <div className="engage-header">
-          <h2 className="engage-heading serif reveal">
-            Three ways to
-            <br />
-            get connected.
-          </h2>
-          <p className="engage-intro reveal reveal-delay-1">
-            Whether you&apos;re brand new or have been here for years, there&apos;s a place for you at
-            Hutchinson — to grow in faith, to serve your community, and to worship alongside a family
-            rooted in love.
-          </p>
-        </div>
-        <div className="engage-cards">
-          <a
-            href="https://www.youtube.com/@hmbc860"
-            className="e-card reveal"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="e-num">01</span>
-            <div className="e-title serif">Worship</div>
-            <p className="e-desc">
-              Join us every Sunday for Spirit-led services grounded in Scripture and full of
-              celebration. In-person and online.
+      {/* ── SECTION 1: MEET THE PASTOR ── */}
+      <section className="pastor" id="pastor" aria-label="Pastoral leadership">
+        <div className="pastor-layout">
+          <div className="pastor-photo reveal" aria-hidden="true">
+            <div className="pastor-photo-bg" />
+          </div>
+
+          <div className="pastor-content reveal reveal-delay-1">
+            <span className="label">Pastoral leadership</span>
+            <h2 className="pastor-name serif">Led by Calling, Rooted in Love</h2>
+            <p className="pastor-bio">
+              God did not send one. He sent two. Pastor Camr Thomas and First Lady Thomas have answered the
+              call to lead Hutchinson into its next hundred years together.
             </p>
-            <span className="e-arrow">→</span>
-          </a>
-          <a href="#mission" className="e-card reveal reveal-delay-1">
-            <span className="e-num">02</span>
-            <div className="e-title serif">Grow</div>
-            <p className="e-desc">
-              Deepen your faith through Bible study, small groups, discipleship programs, and our iLEAD
-              leadership conference.
-            </p>
-            <span className="e-arrow">→</span>
-          </a>
-          <a
-            href="https://pushpay.com/g/hutchinsonmbc"
-            className="e-card reveal reveal-delay-2"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="e-num">03</span>
-            <div className="e-title serif">Serve</div>
-            <p className="e-desc">
-              Put your faith into action. From feeding the hungry to mentoring youth — find your place to
-              make a difference.
-            </p>
-            <span className="e-arrow">→</span>
-          </a>
+            <div className="pastor-links">
+              <a href="#pastor" className="inline-link inline-link--light">
+                Read full bio →
+              </a>
+              <a
+                href="https://www.youtube.com/@hmbc860"
+                className="inline-link inline-link--light"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Watch a message →
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="new-here" id="new-here">
-        <div className="reveal">
-          <span className="label">First Time Here?</span>
-          <h2 className="new-here-heading serif">
-            We&apos;ve been
-            <br />
-            expecting you.
-          </h2>
-          <p className="new-here-body">
-            No matter where you&apos;re coming from — or where you&apos;ve been — Hutchinson is a place
-            where you will be welcomed, seen, and loved. Come as you are.
-          </p>
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=860+East+Grove+Street+Montgomery+AL+36104"
-            className="btn-fill"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Plan Your Visit
-          </a>
+      {/* ── SECTION 2: LATEST SERMON ── */}
+      <section className="pulpit" id="sermons" aria-label="Latest Sermon">
+        <div className="pulpit-layout">
+          {/* Inverted vs pastor: copy 43% | full-height media 57% */}
+          <div className="pulpit-meta reveal">
+            <span className="label pulpit-eyebrow-label">From the Pulpit</span>
+            <span className="pulpit-series-label">The Favor of God</span>
+            <h2 className="pulpit-title serif">
+              When God Prepares<br />the Table
+            </h2>
+            <div className="pulpit-details">
+              <span>Pastor Camr Thomas</span>
+              <span className="pulpit-dot" aria-hidden="true">·</span>
+              <span>March 23, 2025</span>
+              <span className="pulpit-dot" aria-hidden="true">·</span>
+              <span>Psalm 23:5</span>
+            </div>
+            <div className="pulpit-links">
+              <a
+                href="https://www.youtube.com/@hmbc860"
+                className="inline-link inline-link--dark"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Watch Full Sermon →
+              </a>
+              <a
+                href="https://www.youtube.com/@hmbc860"
+                className="inline-link inline-link--dark"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Browse Sermon Archive →
+              </a>
+            </div>
+          </div>
+
+          <div className="pulpit-video reveal reveal-delay-1">
+            <a
+              href="https://www.youtube.com/@hmbc860"
+              className="pulpit-thumb"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Watch sermon on YouTube"
+            >
+              <div className="pulpit-thumb-bg" />
+              <div className="pulpit-thumb-scrim" aria-hidden="true" />
+              <div className="pulpit-play-btn" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </a>
+          </div>
         </div>
-        <div className="new-here-right reveal reveal-delay-1">
-          <div className="new-here-visual">
-            <img
-              src="/newhere.png"
-              alt="Welcoming multigenerational church community outdoors"
-              width={1200}
-              height={900}
-              loading="lazy"
-              decoding="async"
-            />
+      </section>
+
+      {/* ── SECTION 3: MINISTRIES ── */}
+      <section className="ministries" id="ministries" aria-label="Ministries">
+        <div className="ministries-header reveal">
+          <span className="label">Ways to Serve</span>
+          <div className="ministries-header-row">
+            <h2 className="ministries-heading serif">
+              There is a place<br />
+              here for you
+            </h2>
+            <p className="ministries-intro">
+              Hutchinson is not just a place you attend. It is a place you belong. Find your people, find
+              your purpose, and find your place to serve.
+            </p>
           </div>
-          <div className="expect-list">
-            <div className="expect-item">
-              <div className="expect-title">What to Wear</div>
-              <p className="expect-desc">
-                Come as you are. Our congregation is diverse — casual and dressed up both fit right in.
-              </p>
+        </div>
+
+        <div className="ministries-grid">
+          {([
+            {
+              name: "Men's Ministry",
+              icon: Swords,
+              desc: "Brotherhood is not built overnight. It is forged through accountability, prayer, and men who choose to show up.",
+            },
+            {
+              name: "Women's Ministry",
+              icon: HeartHandshake,
+              desc: "There is a seat at the table for every woman here. Together, we grow in faith and become who God called us to be.",
+            },
+            {
+              name: "Youth & Young Adults",
+              icon: GraduationCap,
+              desc: "The next generation is not waiting in the wings at Hutchinson. They are here, active, and rooted in the Word right now.",
+            },
+            {
+              name: "Outreach & Missions",
+              icon: Globe,
+              desc: "Hutchinson believes the church belongs in the community. From Montgomery's streets to the mission field, we go where the need is.",
+            },
+            {
+              name: "Music & Worship",
+              icon: Music2,
+              desc: "Worship at Hutchinson is not a warm-up before the sermon. It is a full encounter with God, led by people who take that seriously.",
+            },
+            {
+              name: "Prayer Ministry",
+              icon: Flame,
+              desc: "Every great work at Hutchinson begins on our knees. Join us as we intercede for this church, this city, and this world.",
+            },
+          ] satisfies ReadonlyArray<{ name: string; icon: LucideIcon; desc: string }>).map((m, i) => (
+            <div key={m.name} className={`ministry-tile reveal${i > 0 ? ` reveal-delay-${Math.min(i, 3)}` : ""}`}>
+              <div className="ministry-icon-wrap" aria-hidden>
+                <m.icon className="ministry-icon" strokeWidth={1.5} size={28} />
+              </div>
+              <h3 className="ministry-name serif">{m.name}</h3>
+              <p className="ministry-desc">{m.desc}</p>
             </div>
-            <div className="expect-item">
-              <div className="expect-title">Service Length</div>
-              <p className="expect-desc">
-                Sunday services run approximately 90 minutes, with dynamic worship and a message from
-                God&apos;s Word.
-              </p>
-            </div>
-            <div className="expect-item">
-              <div className="expect-title">For Your Kids</div>
-              <p className="expect-desc">
-                We have ministry for children of all ages — safe, engaging, and faith-building
-                environments.
-              </p>
-            </div>
-            <div className="expect-item">
-              <div className="expect-title">After the Service</div>
-              <p className="expect-desc">
-                Stick around. Our congregation loves to connect — you&apos;ll feel at home quickly.
-              </p>
-            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PHOTO STRIP: OUR COMMUNITY ── */}
+      <section className="community" id="community" aria-label="Our Community">
+        {/* Text header — stays inside normal page padding */}
+        <div className="community-header">
+          <div className="community-header-left reveal">
+            <span className="label community-eyebrow-label">Our Community</span>
+            <h2 className="community-heading serif">
+              This is what Hutchinson<br />looks like.
+            </h2>
           </div>
+          <div className="community-header-right reveal reveal-delay-1">
+            <p className="community-body">
+              Real people. Real faith. Real community. Follow us on Instagram for a glimpse into
+              the life of this church beyond Sunday morning.
+            </p>
+            <a
+              href="https://www.instagram.com/hmbc860"
+              className="inline-link inline-link--dark"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Follow us @hmbc860 →
+            </a>
+          </div>
+        </div>
+
+        {/* Full-bleed photo strip — zero padding, edge to edge */}
+        <div className="community-strip" role="img" aria-label="Congregation photo collage">
+          {COMMUNITY_STRIP_IMAGES.map((src) => (
+            <div key={src} className="community-photo">
+              <div
+                className="community-photo-bg"
+                style={{ backgroundImage: `url("${src}")` }}
+              />
+              <div className="community-photo-hover" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                <span className="community-photo-handle">@hmbc860</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── SECTION 4: UPCOMING EVENTS ── */}
+      <section className="events" id="events" aria-label="Upcoming Events">
+        <div className="events-header reveal">
+          <span className="label events-eyebrow-label">What&rsquo;s Happening</span>
+          <h2 className="events-heading serif">Come. Be part of something.</h2>
+        </div>
+
+        <div className="events-list">
+          {[
+            { month: "APR", day: "6",  name: "Palm Sunday Worship",    desc: "A special service to begin Holy Week." },
+            { month: "APR", day: "13", name: "Easter Sunday",           desc: "He is risen. Join us for our Easter celebration service." },
+            { month: "APR", day: "19", name: "Community Outreach Day",  desc: "Serving Montgomery together." },
+            { month: "MAY", day: "4",  name: "Women's Day",             desc: "A day of worship, reflection, and sisterhood." },
+          ].map((e, i) => (
+            <div key={e.name} className={`event-row reveal${i > 0 ? ` reveal-delay-${Math.min(i, 3)}` : ""}`}>
+              <div className="event-date" aria-label={`${e.month} ${e.day}`}>
+                <strong className="event-day serif">{e.day}</strong>
+                <span className="event-month">{e.month}</span>
+              </div>
+              <div className="event-info">
+                <h3 className="event-name serif">{e.name}</h3>
+                <p className="event-desc">{e.desc}</p>
+              </div>
+              <a href="#events" className="event-link">Learn More →</a>
+            </div>
+          ))}
+        </div>
+
+        <div className="events-footer reveal">
+          <a href="#events" className="inline-link inline-link--dark">View Full Calendar →</a>
         </div>
       </section>
 
@@ -461,7 +584,7 @@ export default function HomePage() {
             <h4>Connect</h4>
             <ul>
               <li>
-                <a href="#new-here">New Here?</a>
+                <a href="#top">Welcome</a>
               </li>
               <li>
                 <a
@@ -473,7 +596,7 @@ export default function HomePage() {
                 </a>
               </li>
               <li>
-                <a href="#engage">Ministries</a>
+                <a href="#mission">Ministries</a>
               </li>
               <li>
                 <a href="https://pushpay.com/g/hutchinsonmbc" target="_blank" rel="noopener noreferrer">
