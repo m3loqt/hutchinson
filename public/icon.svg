@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="soft">
+      <rect width="32" height="32" rx="7" ry="7" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#soft)">
+    <image
+      href="/favicon.jpg"
+      x="0"
+      y="0"
+      width="32"
+      height="32"
+      preserveAspectRatio="xMidYMid slice"
+    />
+  </g>
+</svg>

@@ -284,7 +284,7 @@ export default function HomePage() {
         <div className="mission-aside reveal">
           <span className="label">Our Mission</span>
         </div>
-        <div className="reveal reveal-delay-1">
+        <div className="mission-content reveal reveal-delay-1">
           <p className="mission-quote serif">
             &ldquo;Striving to maintain a <em>sweet, sweet spirit </em> — equipping saints, reaching the
             lost, and feeding the hungry throughout the world.&rdquo;
@@ -553,7 +553,13 @@ export default function HomePage() {
       </section>
 
       <footer>
+
+        {/* ════════════════════════════════════════
+            LAYER 1 — Main content grid
+        ════════════════════════════════════════ */}
         <div className="footer-grid">
+
+          {/* ── Column 1: Brand ── */}
           <div className="footer-brand reveal">
             <img
               src="/whitelogo.png"
@@ -564,89 +570,102 @@ export default function HomePage() {
               loading="lazy"
               decoding="async"
             />
-            <p>
-              A church rooted in faith, history, and community — serving Montgomery, Alabama and the world
-              since 1900.{" "}
-              <em className="footer-spirit">Sweet, Sweet Spirit.</em>
+            <p className="footer-tagline">
+              A church rooted in faith, history, and community. Serving Montgomery, Alabama and the
+              world since 1900.
             </p>
-            <div className="f-socials">
-              <a
-                href="https://www.youtube.com/@hmbc860"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-              >
-                Yt
-              </a>
+
+            {/* Affiliation sub-section */}
+            <span className="label footer-affil-label">Affiliated With</span>
+
+            {/* 2×2 affiliation logo row */}
+            <div className="footer-affil-logos">
+              <img src="/affiliation1.png" alt="" aria-hidden="true" className="footer-affil-logo" />
+              <img src="/affiliation2.png" alt="" aria-hidden="true" className="footer-affil-logo" />
             </div>
           </div>
-          <div className="footer-col reveal reveal-delay-1">
-            <h4>Connect</h4>
+
+          {/* ── Column 2: Connect ── */}
+          <div className="footer-col footer-col--connect reveal reveal-delay-1">
+            <span className="label footer-col-label">Connect</span>
             <ul>
-              <li>
-                <a href="#top">Welcome</a>
-              </li>
-              <li>
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=860+East+Grove+Street+Montgomery+AL+36104"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Plan a Visit
-                </a>
-              </li>
-              <li>
-                <a href="#mission">Ministries</a>
-              </li>
-              <li>
-                <a href="https://pushpay.com/g/hutchinsonmbc" target="_blank" rel="noopener noreferrer">
-                  Give
-                </a>
-              </li>
+              <li><a href="#top">Welcome</a></li>
+              <li><a href={PLAN_VISIT_URL} target="_blank" rel="noopener noreferrer">Plan a Visit</a></li>
+              <li><a href="#ministries">Ministries</a></li>
+              <li><a href="https://pushpay.com/g/hutchinsonmbc" target="_blank" rel="noopener noreferrer">Give</a></li>
+              <li><a href="#daily-bread">Daily Bread</a></li>
             </ul>
           </div>
-          <div className="footer-col reveal reveal-delay-1">
-            <h4>About</h4>
+
+          {/* ── Column 3: About ── */}
+          <div className="footer-col footer-col--about reveal reveal-delay-2">
+            <span className="label footer-col-label">About</span>
             <ul>
-              <li>
-                <a href="#mission">Our Mission</a>
-              </li>
-              <li>
-                <a href="#mission">Our History</a>
-              </li>
-              <li>
-                <a href="#daily-bread">Daily Bread</a>
-              </li>
-              <li>
-                <a href="https://pushpay.com/g/hutchinsonmbc" target="_blank" rel="noopener noreferrer">
-                  Online Giving
-                </a>
-              </li>
+              <li><a href="#mission">Our Mission</a></li>
+              <li><a href="#mission">Our History</a></li>
+              <li><a href="#mission">Affiliations</a></li>
+              <li><a href="#mission">Scholarships</a></li>
             </ul>
           </div>
-          <div className="footer-col reveal reveal-delay-2">
-            <h4>Visit</h4>
-            <address>
-              860 East Grove Street
-              <br />
+
+          {/* ── Column 4: Visit ── */}
+          <div className="footer-col footer-col--visit reveal reveal-delay-3">
+            <span className="label footer-col-label">Visit</span>
+            <address className="footer-address">
+              860 East Grove Street<br />
               Montgomery, AL 36104
-              <br />
-              <br />
-              Sunday: 9AM & 11AM
-              <br />
-              Wed Bible Study: 7PM
-              <br />
-              <br />
-              <a href="tel:+13342658615" className="footer-tel">
-                (334) 265-8615
-              </a>
             </address>
+            <div className="footer-times">
+              <p>Sunday: 9AM &amp; 11AM</p>
+              <p>Wednesday Bible Study: 7PM</p>
+            </div>
+            <a href="tel:+13342658615" className="footer-tel">(334) 265-8615</a>
+            <a href="https://pushpay.com/g/hutchinsonmbc" className="footer-give-btn" target="_blank" rel="noopener noreferrer">
+              Give Online
+            </a>
           </div>
+
         </div>
+
+        {/* ════════════════════════════════════════
+            LAYER 2 — Bottom bar
+        ════════════════════════════════════════ */}
+        <div className="footer-rule" aria-hidden="true" />
         <div className="footer-bottom">
           <p className="footer-copy">© 2025 Hutchinson Missionary Baptist Church. All rights reserved.</p>
-          <span className="footer-est">Est. 1900 · Montgomery, Alabama</span>
+          {/* Social icons now live on the right bottom bar */}
+          <div className="footer-socials footer-socials--bottom">
+            <a href="https://www.youtube.com/@hmbc860" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="footer-social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/hmbc860" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="footer-social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/hmbc860" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12c0-3.2.01-3.58.07-4.85C2.38 3.86 3.9 2.31 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.7.07 7.05.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24c3.26 0 3.67-.01 4.95-.07 4.35-.2 6.78-2.62 6.98-6.98C23.99 15.67 24 15.26 24 12c0-3.26-.01-3.67-.07-4.95-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32A6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+              </svg>
+            </a>
+            <a href="https://x.com/hmbc860" target="_blank" rel="noopener noreferrer" aria-label="X" className="footer-social-link">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.54h2.04L6.49 3.24H4.3l13.31 17.45z" />
+              </svg>
+            </a>
+          </div>
         </div>
+
+        {/* ════════════════════════════════════════
+            LAYER 3 — Ghost text
+            Dark on dark — felt rather than read.
+            Zero margin/padding below; flush to footer base.
+        ════════════════════════════════════════ */}
+        <p className="footer-ghost footer-ghost--full"  aria-hidden="true">HUTCHINSON</p>
+        <p className="footer-ghost footer-ghost--short" aria-hidden="true">HMBC</p>
+
       </footer>
     </>
   );
