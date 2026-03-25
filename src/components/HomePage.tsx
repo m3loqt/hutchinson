@@ -19,6 +19,9 @@ const HERO_IMAGE_SRC = "/hero.png";
 const PLAN_VISIT_URL =
   "https://www.google.com/maps/search/?api=1&query=860+East+Grove+Street+Montgomery+AL+36104";
 
+/** Replace with your prayer form or page URL; mailto is a fallback until you have one. */
+const PRAYER_REQUEST_URL = "mailto:info@hutchinsonmbc.org?subject=Prayer%20Request";
+
 /** Edge-to-edge community strip (left → right): Sunday service, outreach, youth, worship team, fellowship */
 const COMMUNITY_STRIP_IMAGES = ["/1.jpg", "/2.jpg", "/3.jpg", "/5.jpg", "/6.jpg"] as const;
 
@@ -66,6 +69,8 @@ export default function HomePage() {
     drawerLinks.forEach((link) => link.addEventListener("click", closeDrawer));
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Scroll-reveal for .reveal elements
     let observer: IntersectionObserver | undefined;
     if (!reduceMotion) {
       observer = new IntersectionObserver(
@@ -84,6 +89,36 @@ export default function HomePage() {
       document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
     }
 
+    // Scroll-reveal for .animate-ready elements (fade / fade-up system)
+    let animObserver: IntersectionObserver | undefined;
+    if (!reduceMotion) {
+      animObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate-in");
+              animObserver?.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.06, rootMargin: "0px 0px -24px 0px" }
+      );
+      document.querySelectorAll(".animate-ready").forEach((el) => animObserver?.observe(el));
+    } else {
+      document.querySelectorAll(".animate-ready").forEach((el) => el.classList.add("animate-in"));
+    }
+
+    // Ghost text page-load fade (not scroll-triggered)
+    let ghostTimer: ReturnType<typeof setTimeout> | undefined;
+    const ghostEls = document.querySelectorAll(".footer-ghost");
+    if (!reduceMotion) {
+      ghostTimer = setTimeout(() => {
+        ghostEls.forEach((el) => el.classList.add("ghost-revealed"));
+      }, 400);
+    } else {
+      ghostEls.forEach((el) => el.classList.add("ghost-revealed"));
+    }
+
     return () => {
       toggle.removeEventListener("click", onToggle);
       backdropEl.removeEventListener("click", onBackdrop);
@@ -91,6 +126,8 @@ export default function HomePage() {
       window.removeEventListener("scroll", onScroll);
       drawerLinks.forEach((link) => link.removeEventListener("click", closeDrawer));
       observer?.disconnect();
+      animObserver?.disconnect();
+      clearTimeout(ghostTimer);
       document.body.classList.remove("nav-open");
     };
   }, []);
@@ -213,10 +250,10 @@ export default function HomePage() {
         </div>
         <div className="hero-layout">
           <div className="hero-column hero-column--headline">
-            <div className="hero-eyebrow">
+            <div className="hero-eyebrow animate-ready anim--fade anim--600 anim--d1">
               <span className="label">Montgomery, Alabama · Est. 1900</span>
             </div>
-            <h1 className="hero-headline">
+            <h1 className="hero-headline animate-ready anim--fade-up anim--800 anim--d2">
               A{" "}
               Sweet,
               <br />
@@ -225,7 +262,7 @@ export default function HomePage() {
             </h1>
           </div>
 
-          <div className="hero-glass">
+          <div className="hero-glass animate-ready anim--fade-up anim--d4">
             {/* Real glass blur: same photo as hero, fixed to viewport + filter (works when backdrop-filter does not). */}
             <div
               className="hero-glass-frost"
@@ -238,16 +275,6 @@ export default function HomePage() {
                 Rooted in 125 years of faith, community, and the enduring love of God. A new season. The
                 same spirit. You are welcome here.
               </p>
-              <div className="hero-panel-details">
-                <div className="hero-detail">
-                  <span className="hero-detail-label">Sunday Service</span>
-                  <span className="hero-detail-value">9:00 AM &amp; 11:00 AM</span>
-                </div>
-                <div className="hero-detail">
-                  <span className="hero-detail-label">Location</span>
-                  <span className="hero-detail-value">860 East Grove St, Montgomery, AL 36104</span>
-                </div>
-              </div>
               <div className="hero-panel-actions">
                 <a
                   href={PLAN_VISIT_URL}
@@ -311,7 +338,7 @@ export default function HomePage() {
             <span className="label">Pastoral leadership</span>
             <h2 className="pastor-name serif">Led by Calling, Rooted in Love</h2>
             <p className="pastor-bio">
-              God did not send one. He sent two. Pastor Camr Thomas and First Lady Thomas have answered the
+              God did not send one. He sent two. Pastor Cameron Thomas and First Lady Thomas have answered the
               call to lead Hutchinson into its next hundred years together.
             </p>
             <div className="pastor-links">
@@ -337,12 +364,12 @@ export default function HomePage() {
           {/* Inverted vs pastor: copy 43% | full-height media 57% */}
           <div className="pulpit-meta reveal">
             <span className="label pulpit-eyebrow-label">From the Pulpit</span>
-            <span className="pulpit-series-label">The Favor of God</span>
+         
             <h2 className="pulpit-title serif">
               When God Prepares<br />the Table
             </h2>
             <div className="pulpit-details">
-              <span>Pastor Camr Thomas</span>
+              <span>Pastor Cameron Thomas</span>
               <span className="pulpit-dot" aria-hidden="true">·</span>
               <span>March 23, 2025</span>
               <span className="pulpit-dot" aria-hidden="true">·</span>
@@ -397,9 +424,7 @@ export default function HomePage() {
               There is a place<br />
               here for you
             </h2>
-            <p className="ministries-intro">
-              Hutchinson is not just a place you attend. It is a place you belong. Find your people, find
-              your purpose, and find your place to serve.
+            <p className="ministries-intro">Hutchinson is not just a place you attend on Sunday. It is a place you belong every day of the week. Find your people, grow in your purpose, and discover where your gifts are needed most.
             </p>
           </div>
         </div>
@@ -437,7 +462,7 @@ export default function HomePage() {
               desc: "Every great work at Hutchinson begins on our knees. Join us as we intercede for this church, this city, and this world.",
             },
           ] satisfies ReadonlyArray<{ name: string; icon: LucideIcon; desc: string }>).map((m, i) => (
-            <div key={m.name} className={`ministry-tile reveal${i > 0 ? ` reveal-delay-${Math.min(i, 3)}` : ""}`}>
+            <div key={m.name} className={`ministry-tile reveal${i > 0 ? ` reveal-delay-${Math.min(i, 5)}` : ""}`}>
               <div className="ministry-icon-wrap" aria-hidden>
                 <m.icon className="ministry-icon" strokeWidth={1.5} size={28} />
               </div>
@@ -455,7 +480,7 @@ export default function HomePage() {
           <div className="community-header-left reveal">
             <span className="label community-eyebrow-label">Our Community</span>
             <h2 className="community-heading serif">
-              This is what Hutchinson<br />looks like.
+              This is what Hutchinson<br /> Community looks like
             </h2>
           </div>
           <div className="community-header-right reveal reveal-delay-1">
@@ -476,8 +501,8 @@ export default function HomePage() {
 
         {/* Full-bleed photo strip — zero padding, edge to edge */}
         <div className="community-strip" role="img" aria-label="Congregation photo collage">
-          {COMMUNITY_STRIP_IMAGES.map((src) => (
-            <div key={src} className="community-photo">
+          {COMMUNITY_STRIP_IMAGES.map((src, i) => (
+            <div key={src} className={`community-photo animate-ready anim--fade anim--s${Math.min(i + 1, 5)}`}>
               <div
                 className="community-photo-bg"
                 style={{ backgroundImage: `url("${src}")` }}
@@ -499,7 +524,7 @@ export default function HomePage() {
       <section className="events" id="events" aria-label="Upcoming Events">
         <div className="events-header reveal">
           <span className="label events-eyebrow-label">What&rsquo;s Happening</span>
-          <h2 className="events-heading serif">Come. Be part of something.</h2>
+          <h2 className="events-heading serif">Come. Be part of something</h2>
         </div>
 
         <div className="events-list">
@@ -528,6 +553,65 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── PLAN YOUR VISIT ── */}
+      <section className="visit-section" id="visit" aria-label="Plan Your Visit">
+        <div className="visit-visual" aria-hidden="true">
+          <div
+            className="visit-bg"
+            style={{ backgroundImage: "url('/nextstep.png')" }}
+          />
+        </div>
+
+        <div className="visit-content-column">
+          <div className="visit-content">
+            <span className="label visit-label">Plan Your Visit</span>
+
+            <h2 className="visit-heading serif">
+              We have been<br />waiting for you
+            </h2>
+
+            <p className="visit-body">
+              Whether this is your first Sunday or you are finding your way back, you are welcome
+              at Hutchinson. Come as you are. We will take care of the rest.
+            </p>
+
+            {/* Info block */}
+            <div className="visit-info">
+              <div className="visit-info-item">
+                <span className="label visit-info-label">Service Times</span>
+                <p className="visit-info-text">Sunday: 9AM &amp; 11AM</p>
+                <p className="visit-info-text">Wednesday Bible Study: 7PM</p>
+              </div>
+              <div className="visit-info-item">
+                <span className="label visit-info-label">Location</span>
+                <p className="visit-info-text">860 East Grove Street</p>
+                <p className="visit-info-text">Montgomery, AL 36104</p>
+              </div>
+            </div>
+
+            {/* CTAs */}
+            <div className="visit-ctas">
+              <a
+                href={PLAN_VISIT_URL}
+                className="btn-fill visit-btn-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Plan Your Visit
+              </a>
+              <a
+                href={PLAN_VISIT_URL}
+                className="inline-link inline-link--light"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get Directions →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="daily-bread" id="daily-bread" aria-label="Our Daily Bread">
         <div className="daily-bread-layout">
           <div className="daily-bread-verse" aria-hidden="true">
@@ -545,9 +629,14 @@ export default function HomePage() {
               Receive personal reflections each morning, short thoughts or verses chosen to calm, inspire,
               and center you in God&apos;s peace.
             </p>
-            <a href="#top" className="daily-bread-cta">
-              get daily calm by email
-            </a>
+            <div className="daily-bread-cta-row">
+              <a href="#top" className="daily-bread-cta">
+                start your morning with scripture
+              </a>
+              <a href={PRAYER_REQUEST_URL} className="daily-bread-secondary-link">
+                Have a prayer request? Submit it here.
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -571,8 +660,8 @@ export default function HomePage() {
               decoding="async"
             />
             <p className="footer-tagline">
-              A church rooted in faith, history, and community. Serving Montgomery, Alabama and the
-              world since 1900.
+            A
+            Hutchinson is a home. Rooted in Montgomery, Alabama since 1900, this church has stood through generations as a place of worship, service, and deep community. The calling has never changed and neither has the spirit.
             </p>
 
             {/* Affiliation sub-section */}
