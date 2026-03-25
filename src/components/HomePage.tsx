@@ -13,11 +13,13 @@ import {
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-/** Same asset as hero background — used by the glass card frost layer (blur via filter, not backdrop-filter). */
+/** Hero full-bleed photo (main backdrop only; welcome panel has no image fill). */
 const HERO_IMAGE_SRC = "/hero.png";
 
 const PLAN_VISIT_URL =
   "https://www.google.com/maps/search/?api=1&query=860+East+Grove+Street+Montgomery+AL+36104";
+
+const GIVE_ONLINE_URL = "https://pushpay.com/g/hutchinsonmbc";
 
 /** Replace with your prayer form or page URL; mailto is a fallback until you have one. */
 const PRAYER_REQUEST_URL = "mailto:info@hutchinsonmbc.org?subject=Prayer%20Request";
@@ -163,6 +165,14 @@ export default function HomePage() {
         </div>
         <div className="nav-actions">
           <a
+            href={GIVE_ONLINE_URL}
+            className="nav-give"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Give online
+          </a>
+          <a
             href={PLAN_VISIT_URL}
             className="nav-cta"
             target="_blank"
@@ -263,13 +273,6 @@ export default function HomePage() {
           </div>
 
           <div className="hero-glass animate-ready anim--fade-up anim--d4">
-            {/* Real glass blur: same photo as hero, fixed to viewport + filter (works when backdrop-filter does not). */}
-            <div
-              className="hero-glass-frost"
-              aria-hidden="true"
-              style={{ backgroundImage: `url(${HERO_IMAGE_SRC})` }}
-            />
-            <div className="hero-glass-tint" aria-hidden="true" />
             <div className="hero-glass-inner">
               <p className="hero-panel-desc">
                 Rooted in 125 years of faith, community, and the enduring love of God. A new season. The
@@ -300,10 +303,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="scroll-nudge" aria-hidden="true">
-          <span>Scroll</span>
         </div>
       </section>
 
