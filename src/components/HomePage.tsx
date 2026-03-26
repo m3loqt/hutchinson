@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 /** Hero full-bleed photo (main backdrop only; welcome panel has no image fill). */
-const HERO_IMAGE_SRC = "/hero.png";
+const HERO_IMAGE_SRC = "/newh.png";
 
 const PLAN_VISIT_URL =
   "https://www.google.com/maps/search/?api=1&query=860+East+Grove+Street+Montgomery+AL+36104";
@@ -32,6 +32,7 @@ export default function HomePage() {
   const toggleRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const backdropRef = useRef<HTMLDivElement | null>(null);
+  const pulpitTrackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -134,6 +135,15 @@ export default function HomePage() {
     };
   }, []);
 
+  const handlePulpitNav = (direction: "prev" | "next") => {
+    const track = pulpitTrackRef.current;
+    if (!track) return;
+    const firstCard = track.querySelector<HTMLElement>(".pulpit-card");
+    const cardWidth = firstCard?.offsetWidth ?? track.clientWidth;
+    const scrollAmount = direction === "next" ? cardWidth : -cardWidth;
+    track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  };
+
   return (
     <>
       <nav id="nav" ref={navRef} aria-label="Primary">
@@ -178,7 +188,7 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Plan your visit
+            Plan Your Visit
           </a>
           <button
             type="button"
@@ -232,7 +242,7 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Plan your visit
+            Plan Your Visit
           </a>
           <p className="nav-drawer-meta">
             860 East Grove Street
@@ -263,6 +273,7 @@ export default function HomePage() {
             <div className="hero-eyebrow animate-ready anim--fade anim--600 anim--d1">
               <span className="label">Montgomery, Alabama · Est. 1900</span>
             </div>
+            {/* TODO: replace hero-bg with real congregation worship photo — warm, golden light, hands raised preferred */}
             <h1 className="hero-headline animate-ready anim--fade-up anim--800 anim--d2">
               A{" "}
               Sweet,
@@ -285,7 +296,7 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Plan your visit
+                  Plan Your Visit
                 </a>
                 <a
                   href="https://www.youtube.com/@hmbc860"
@@ -312,16 +323,15 @@ export default function HomePage() {
         </div>
         <div className="mission-content reveal reveal-delay-1">
           <p className="mission-quote serif">
-            &ldquo;Striving to maintain a <em>sweet, sweet spirit </em> — equipping saints, reaching the
+            &ldquo;Striving to maintain a <em>sweet, sweet spirit</em> &mdash; equipping saints, reaching the
             lost, and feeding the hungry throughout the world.&rdquo;
           </p>
           <p className="mission-body">
-            Hutchinson Missionary Baptist Church has anchored the Montgomery community since 1900.
-            Today, under a new season of pastoral leadership, we remain committed to the same calling:
-            equipping people to live fully for God and serve fully in the world.
+            Since 1900, Hutchinson has stood as a place where faith is lived out loud. We are still here.
+            Still preaching. Still serving. Still welcoming everyone who walks through these doors.
           </p>
           <a href="#daily-bread" className="mission-link">
-            Learn About Us &nbsp;→
+            Learn About Us →
           </a>
         </div>
       </section>
@@ -334,15 +344,15 @@ export default function HomePage() {
           </div>
 
           <div className="pastor-content reveal reveal-delay-1">
-            <span className="label">Pastoral leadership</span>
-            <h2 className="pastor-name serif">Led by Calling, Rooted in Love</h2>
+            {/* TODO: replace pastor-photo-bg with official portrait of Pastor Cameron Thomas and First Lady Thomas */}
+            <span className="label">Pastoral Leadership</span>
+            <h2 className="pastor-name serif">Surrendered and Hopeful</h2>
             <p className="pastor-bio">
-              God did not send one. He sent two. Pastor Cameron Thomas and First Lady Thomas have answered the
-              call to lead Hutchinson into its next hundred years together.
+            That is how Pastor Cameron Thomas signs every letter to this congregation. It is also how he leads. With his whole heart, his whole life, and an unshakeable belief that God is still writing this story.
             </p>
             <div className="pastor-links">
               <a href="#pastor" className="inline-link inline-link--light">
-                Read full bio →
+                Read Full Bio →
               </a>
               <a
                 href="https://www.youtube.com/@hmbc860"
@@ -350,68 +360,86 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Watch a message →
+                Watch a Message →
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 2: LATEST SERMON ── */}
-      <section className="pulpit" id="sermons" aria-label="Latest Sermon">
-        <div className="pulpit-layout">
-          {/* Inverted vs pastor: copy 43% | full-height media 57% */}
-          <div className="pulpit-meta reveal">
-            <span className="label pulpit-eyebrow-label">From the Pulpit</span>
-         
-            <h2 className="pulpit-title serif">
-              When God Prepares<br />the Table
-            </h2>
-            <div className="pulpit-details">
-              <span>Pastor Cameron Thomas</span>
-              <span className="pulpit-dot" aria-hidden="true">·</span>
-              <span>March 23, 2025</span>
-              <span className="pulpit-dot" aria-hidden="true">·</span>
-              <span>Psalm 23:5</span>
-            </div>
-            <div className="pulpit-links">
-              <a
-                href="https://www.youtube.com/@hmbc860"
-                className="inline-link inline-link--dark"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Watch Full Sermon →
-              </a>
-              <a
-                href="https://www.youtube.com/@hmbc860"
-                className="inline-link inline-link--dark"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Browse Sermon Archive →
-              </a>
-            </div>
-          </div>
+      {/* ── SECTION 2: FROM THE PULPIT ── */}
+      <section className="pulpit" id="sermons" aria-label="From the Pulpit">
 
-          <div className="pulpit-video reveal reveal-delay-1">
-            <a
-              href="https://www.youtube.com/@hmbc860"
-              className="pulpit-thumb"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Watch sermon on YouTube"
+        <div className="pulpit-header">
+          <div className="pulpit-header-main">
+            <span className="label">From the Pulpit</span>
+            <h2 className="pulpit-heading serif">Featured Messages</h2>
+            <p className="pulpit-intro">
+              Weekly messages from Hutchinson that you can revisit anytime.
+            </p>
+          </div>
+          <div className="pulpit-header-actions">
+            <button
+              type="button"
+              className="pulpit-nav-btn"
+              onClick={() => handlePulpitNav("prev")}
+              aria-label="Previous message"
             >
-              <div className="pulpit-thumb-bg" />
-              <div className="pulpit-thumb-scrim" aria-hidden="true" />
-              <div className="pulpit-play-btn" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </a>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"/>
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="pulpit-nav-btn"
+              onClick={() => handlePulpitNav("next")}
+              aria-label="Next message"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"/>
+              </svg>
+            </button>
           </div>
         </div>
+
+        <div className="pulpit-slider" ref={pulpitTrackRef}>
+          {[
+            {
+              title: "When the Wrong Man Walks Free",
+              date: "March 23, 2026",
+              verse: "John 18:40",
+            },
+            {
+              title: "When God Prepares the Table",
+              date: "March 16, 2026",
+              verse: "Psalm 23:5",
+            },
+            {
+              title: "Surrendered and Hopeful",
+              date: "March 9, 2026",
+              verse: "Romans 12:1",
+            },
+          ].map((s) => (
+            <article key={s.title} className="pulpit-card reveal">
+              {/* TODO: replace Featured.png with actual sermon thumbnail */}
+              <div className="pulpit-card-thumb">
+                <img src="/Featured.png" alt="" aria-hidden="true" />
+              </div>
+              <h3 className="pulpit-card-title serif">{s.title}</h3>
+              <p className="pulpit-card-meta">{s.date}</p>
+              <p className="pulpit-card-meta">{s.verse}</p>
+              <a
+                href="https://www.youtube.com/@hmbc860"
+                className="pulpit-card-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Watch Message
+              </a>
+            </article>
+          ))}
+        </div>
+
       </section>
 
       {/* ── SECTION 3: MINISTRIES ── */}
@@ -421,10 +449,16 @@ export default function HomePage() {
           <div className="ministries-header-row">
             <h2 className="ministries-heading serif">
               There is a place<br />
-              here for you
+              here for you.
             </h2>
-            <p className="ministries-intro">Hutchinson is not just a place you attend on Sunday. It is a place you belong every day of the week. Find your people, grow in your purpose, and discover where your gifts are needed most.
+            <p className="ministries-intro">For over 125 years, this church has been built by ordinary people who showed up and gave what they had. There is still room at the table and still work to be done. Come find your place in it.
             </p>
+          </div>
+
+          <div className="ministries-cta-row reveal" style={{ marginTop: "clamp(28px, 4vw, 40px)" }}>
+            <a href="#ministries" className="inline-link inline-link--light">
+              Explore All Ministries →
+            </a>
           </div>
         </div>
 
@@ -433,32 +467,32 @@ export default function HomePage() {
             {
               name: "Men's Ministry",
               icon: Swords,
-              desc: "Brotherhood is not built overnight. It is forged through accountability, prayer, and men who choose to show up.",
+              desc: "Iron sharpens iron. A brotherhood built on accountability, shared prayer, and men who choose to show up for one another.",
             },
             {
               name: "Women's Ministry",
               icon: HeartHandshake,
-              desc: "There is a seat at the table for every woman here. Together, we grow in faith and become who God called us to be.",
+              desc: "Every woman who walks through these doors finds a seat at the table. Together we grow in faith, purpose, and the love of God.",
             },
             {
               name: "Youth & Young Adults",
               icon: GraduationCap,
-              desc: "The next generation is not waiting in the wings at Hutchinson. They are here, active, and rooted in the Word right now.",
+              desc: "The next generation is not waiting in the wings at Hutchinson. They are here, they are active, and they are being rooted in the Word right now.",
             },
             {
               name: "Outreach & Missions",
               icon: Globe,
-              desc: "Hutchinson believes the church belongs in the community. From Montgomery's streets to the mission field, we go where the need is.",
+              desc: "From the streets of Montgomery to the mission field, Hutchinson shows up where the need is. The church does not stop at these walls.",
             },
             {
               name: "Music & Worship",
               icon: Music2,
-              desc: "Worship at Hutchinson is not a warm-up before the sermon. It is a full encounter with God, led by people who take that seriously.",
+              desc: "Before the message, there is the song. Our worship team leads this house into the presence of God every single Sunday.",
             },
             {
               name: "Prayer Ministry",
               icon: Flame,
-              desc: "Every great work at Hutchinson begins on our knees. Join us as we intercede for this church, this city, and this world.",
+              desc: "Everything we do at Hutchinson begins on our knees. Join us as we intercede for this church, this city, and this world.",
             },
           ] satisfies ReadonlyArray<{ name: string; icon: LucideIcon; desc: string }>).map((m, i) => (
             <div key={m.name} className={`ministry-tile reveal${i > 0 ? ` reveal-delay-${Math.min(i, 5)}` : ""}`}>
@@ -477,15 +511,16 @@ export default function HomePage() {
         {/* Text header — stays inside normal page padding */}
         <div className="community-header">
           <div className="community-header-left reveal">
+            {/* TODO: replace community strip photos with real congregation photos (5 slots: Sunday service, outreach, youth, worship team, fellowship) */}
             <span className="label community-eyebrow-label">Our Community</span>
             <h2 className="community-heading serif">
-              This is what Hutchinson<br /> Community looks like
+              This is what Hutchinson looks like.
             </h2>
           </div>
           <div className="community-header-right reveal reveal-delay-1">
             <p className="community-body">
-              Real people. Real faith. Real community. Follow us on Instagram for a glimpse into
-              the life of this church beyond Sunday morning.
+              Real people. Real faith. Real community. Follow along for a glimpse into the life of
+              this church beyond Sunday morning.
             </p>
             <a
               href="https://www.instagram.com/hmbc860"
@@ -523,20 +558,21 @@ export default function HomePage() {
       <section className="events" id="events" aria-label="Upcoming Events">
         <div className="events-header reveal">
           <span className="label events-eyebrow-label">What&rsquo;s Happening</span>
-          <h2 className="events-heading serif">Come. Be part of something</h2>
+          <h2 className="events-heading serif">Come. Be part of something.</h2>
         </div>
 
         <div className="events-list">
           {[
-            { month: "APR", day: "6",  name: "Palm Sunday Worship",    desc: "A special service to begin Holy Week." },
-            { month: "APR", day: "13", name: "Easter Sunday",           desc: "He is risen. Join us for our Easter celebration service." },
-            { month: "APR", day: "19", name: "Community Outreach Day",  desc: "Serving Montgomery together." },
-            { month: "MAY", day: "4",  name: "Women's Day",             desc: "A day of worship, reflection, and sisterhood." },
+            { month: "APR", day: "6",  name: "Palm Sunday Worship",       desc: "A special service to begin Holy Week." },
+            { month: "APR", day: "13", name: "Easter Sunday",              desc: "He is risen. Come celebrate with us." },
+            { month: "APR", day: "19", name: "Community Outreach Day",     desc: "Serving the streets of Montgomery together." },
+            { month: "MAY", day: "2",  name: "Cruising with The Hutch",    desc: "Our 126th Anniversary Dinner Cruise on the Harriott II Riverboat." },
+            { month: "MAY", day: "4",  name: "Women's Day",                desc: "A day of worship, reflection, and sisterhood." },
           ].map((e, i) => (
             <div key={e.name} className={`event-row reveal${i > 0 ? ` reveal-delay-${Math.min(i, 3)}` : ""}`}>
               <div className="event-date" aria-label={`${e.month} ${e.day}`}>
-                <strong className="event-day serif">{e.day}</strong>
                 <span className="event-month">{e.month}</span>
+                <strong className="event-day serif">{e.day}</strong>
               </div>
               <div className="event-info">
                 <h3 className="event-name serif">{e.name}</h3>
@@ -557,7 +593,7 @@ export default function HomePage() {
         <div className="visit-visual" aria-hidden="true">
           <div
             className="visit-bg"
-            style={{ backgroundImage: "url('/nextstep.png')" }}
+            style={{ backgroundImage: "url('/expecting.jpeg')" }}
           />
         </div>
 
@@ -625,15 +661,12 @@ export default function HomePage() {
               see how love already surrounds and carries you forward.
             </h2>
             <p className="daily-bread-body">
-              Receive personal reflections each morning, short thoughts or verses chosen to calm, inspire,
-              and center you in God&apos;s peace.
+              Start your morning with a short reflection, a verse, or a word chosen to calm and center
+              you in God&apos;s peace. Delivered to your inbox every morning.
             </p>
             <div className="daily-bread-cta-row">
               <a href="#top" className="daily-bread-cta">
-                start your morning with scripture
-              </a>
-              <a href={PRAYER_REQUEST_URL} className="daily-bread-secondary-link">
-                Have a prayer request? Submit it here.
+                receive your daily word
               </a>
             </div>
           </div>
@@ -659,8 +692,7 @@ export default function HomePage() {
               decoding="async"
             />
             <p className="footer-tagline">
-            A
-            Hutchinson is a home. Rooted in Montgomery, Alabama since 1900, this church has stood through generations as a place of worship, service, and deep community. The calling has never changed and neither has the spirit.
+              Hutchinson has called Montgomery home since 1900. Through every generation, every season, and every challenge, this church has remained committed to one thing: a sweet, sweet spirit and a heart for this world.
             </p>
 
             {/* Affiliation sub-section */}
@@ -691,6 +723,7 @@ export default function HomePage() {
             <ul>
               <li><a href="#mission">Our Mission</a></li>
               <li><a href="#mission">Our History</a></li>
+              <li><a href="#mission">Our Story</a></li>
               <li><a href="#mission">Affiliations</a></li>
               <li><a href="#mission">Scholarships</a></li>
             </ul>
@@ -721,6 +754,7 @@ export default function HomePage() {
         <div className="footer-rule" aria-hidden="true" />
         <div className="footer-bottom">
           <p className="footer-copy">© 2025 Hutchinson Missionary Baptist Church. All rights reserved.</p>
+          <p className="footer-est">Est. 1900 · Montgomery, Alabama</p>
           {/* Social icons now live on the right bottom bar */}
           <div className="footer-socials footer-socials--bottom">
             <a href="https://www.youtube.com/@hmbc860" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="footer-social-link">
