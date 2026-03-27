@@ -563,34 +563,29 @@ export default function HomePage() {
           {/* LEFT: Featured event */}
           <div className="events-featured reveal">
             <div className="events-featured-img-wrap">
-              {/* TODO: replace with Easter Sunday event photo */}
+              <img
+                className="events-featured-img"
+                src="/cruise.jpg"
+                alt="Promotional graphic for Cruising with The Hutch dinner cruise on the Harriott II Riverboat."
+              />
               <div className="events-featured-img-overlay" aria-hidden />
-              <div className="events-featured-img-caption">
-                <span className="label">APR 13 &middot; Easter Sunday</span>
-                <h3 className="events-featured-title serif">He is risen. Come celebrate with us.</h3>
+              <div className="events-featured-oncard">
+                <div className="events-featured-oncard-main">
+                  <div className="events-featured-datetime">
+                    <p className="events-featured-value">Saturday, May 2, 2026</p>
+                    <p className="events-featured-value">Boarding 4:30 PM &middot; Cruising 5:00&ndash;7:00 PM</p>
+                  </div>
+                  <h3 className="events-featured-title serif">Cruising with The Hutch Dinner Cruise</h3>
+                  <p className="events-featured-location events-featured-value">
+                    Harriott II Riverboat, 255 Commerce St., Montgomery, AL
+                  </p>
+                </div>
+                <a href="#events" className="btn-fill events-featured-cta">
+                  Learn More
+                </a>
               </div>
-            </div>
-            <div className="events-featured-body">
-              <div className="events-featured-meta">
-                <div className="events-featured-info">
-                  <span className="label events-meta-label">Date</span>
-                  <span className="events-meta-value">Sunday, April 13, 2026</span>
-                </div>
-                <div className="events-featured-info">
-                  <span className="label events-meta-label">Time</span>
-                  <span className="events-meta-value">9AM &amp; 11AM</span>
-                </div>
-                <div className="events-featured-info">
-                  <span className="label events-meta-label">Location</span>
-                  <span className="events-meta-value">860 East Grove Street, Montgomery, AL</span>
-                </div>
-              </div>
-              <a href="#events" className="inline-link inline-link--dark">Learn More →</a>
             </div>
           </div>
-
-          {/* DIVIDER: vertical on desktop, horizontal on mobile/tablet */}
-          <div className="events-divider" aria-hidden />
 
           {/* RIGHT: Event list */}
           <div className="events-list">
