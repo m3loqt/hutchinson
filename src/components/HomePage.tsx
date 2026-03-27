@@ -1,15 +1,6 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element -- Local assets; can switch to next/image later */
-import {
-  Flame,
-  Globe,
-  GraduationCap,
-  HeartHandshake,
-  Music2,
-  Swords,
-  type LucideIcon,
-} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
@@ -25,7 +16,7 @@ const GIVE_ONLINE_URL = "https://pushpay.com/g/hutchinsonmbc";
 const PRAYER_REQUEST_URL = "mailto:info@hutchinsonmbc.org?subject=Prayer%20Request";
 
 /** Edge-to-edge community strip (left → right): Sunday service, outreach, youth, worship team, fellowship */
-const COMMUNITY_STRIP_IMAGES = ["/1.jpg", "/2.jpg", "/3.jpg", "/5.jpg", "/6.jpg"] as const;
+const COMMUNITY_STRIP_IMAGES = ["/img1.jpg", "/img2.jpg", "/img3.jpg", "/img4.jpg", "/img5.jpg"] as const;
 
 export default function HomePage() {
   const navRef = useRef<HTMLElement | null>(null);
@@ -367,15 +358,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SECTION 2: FROM THE PULPIT ── */}
-      <section className="pulpit" id="sermons" aria-label="From the Pulpit">
+      {/* ── SECTION 2: SERMONS ── */}
+      <section className="pulpit" id="sermons" aria-label="Featured Messages">
 
         <div className="pulpit-header">
           <div className="pulpit-header-main">
-            <span className="label">From the Pulpit</span>
-            <h2 className="pulpit-heading serif">Featured Messages</h2>
+            <span className="label">Sermons</span>
+            <h2 className="pulpit-heading serif">Catch Up On The Sermon</h2>
             <p className="pulpit-intro">
-              Weekly messages from Hutchinson that you can revisit anytime.
+              Every sermon preached at Hutchinson is here for you. Watch it. Share it. Come back to it whenever you need a word.
             </p>
           </div>
           <div className="pulpit-header-actions">
@@ -408,22 +399,25 @@ export default function HomePage() {
               title: "When the Wrong Man Walks Free",
               date: "March 23, 2026",
               verse: "John 18:40",
+              image: "/Featured.png",
             },
             {
               title: "When God Prepares the Table",
               date: "March 16, 2026",
               verse: "Psalm 23:5",
+              image: "/Midweek Recharge.png",
             },
             {
               title: "Surrendered and Hopeful",
               date: "March 9, 2026",
               verse: "Romans 12:1",
+              image: "/sermon2.png",
             },
           ].map((s) => (
             <article key={s.title} className="pulpit-card reveal">
-              {/* TODO: replace Featured.png with actual sermon thumbnail */}
+              {/* TODO: replace with actual sermon thumbnail */}
               <div className="pulpit-card-thumb">
-                <img src="/Featured.png" alt="" aria-hidden="true" />
+                <img src={s.image} alt="" aria-hidden="true" />
               </div>
               <h3 className="pulpit-card-title serif">{s.title}</h3>
               <p className="pulpit-card-meta">{s.date}</p>
@@ -449,16 +443,17 @@ export default function HomePage() {
           <div className="ministries-header-row">
             <h2 className="ministries-heading serif">
               There is a place<br />
-              here for you.
+              here for you
             </h2>
-            <p className="ministries-intro">For over 125 years, this church has been built by ordinary people who showed up and gave what they had. There is still room at the table and still work to be done. Come find your place in it.
-            </p>
-          </div>
-
-          <div className="ministries-cta-row reveal" style={{ marginTop: "clamp(28px, 4vw, 40px)" }}>
-            <a href="#ministries" className="inline-link inline-link--light">
-              Explore All Ministries →
-            </a>
+            <div className="ministries-header-right">
+              <p className="ministries-intro">For over 125 years, this church has been built by ordinary people who showed up and gave what they had. There is still room at the table and still work to be done. Come find your place in it.
+              </p>
+              <div className="ministries-cta-row reveal">
+                <a href="#ministries" className="inline-link inline-link--light">
+                  Explore All Ministries →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -466,41 +461,42 @@ export default function HomePage() {
           {([
             {
               name: "Men's Ministry",
-              icon: Swords,
               desc: "Iron sharpens iron. A brotherhood built on accountability, shared prayer, and men who choose to show up for one another.",
+              image: "/men.jpg",
             },
             {
               name: "Women's Ministry",
-              icon: HeartHandshake,
               desc: "Every woman who walks through these doors finds a seat at the table. Together we grow in faith, purpose, and the love of God.",
+              image: "/Womens.jpg",
             },
             {
               name: "Youth & Young Adults",
-              icon: GraduationCap,
               desc: "The next generation is not waiting in the wings at Hutchinson. They are here, they are active, and they are being rooted in the Word right now.",
+              image: "/Young.jpg",
             },
             {
               name: "Outreach & Missions",
-              icon: Globe,
               desc: "From the streets of Montgomery to the mission field, Hutchinson shows up where the need is. The church does not stop at these walls.",
+              image: "/Outreach.jpg",
             },
             {
               name: "Music & Worship",
-              icon: Music2,
               desc: "Before the message, there is the song. Our worship team leads this house into the presence of God every single Sunday.",
+              image: "/music.jpg",
             },
             {
               name: "Prayer Ministry",
-              icon: Flame,
               desc: "Everything we do at Hutchinson begins on our knees. Join us as we intercede for this church, this city, and this world.",
+              image: "/Prayer.jpg",
             },
-          ] satisfies ReadonlyArray<{ name: string; icon: LucideIcon; desc: string }>).map((m, i) => (
+          ] satisfies ReadonlyArray<{ name: string; desc: string; image: string }>).map((m, i) => (
             <div key={m.name} className={`ministry-tile reveal${i > 0 ? ` reveal-delay-${Math.min(i, 5)}` : ""}`}>
-              <div className="ministry-icon-wrap" aria-hidden>
-                <m.icon className="ministry-icon" strokeWidth={1.5} size={28} />
+              {m.image && <img src={m.image} alt="" aria-hidden className="ministry-tile-bg" />}
+              <div className="ministry-tile-overlay" />
+              <div className="ministry-tile-content">
+                <h3 className="ministry-name serif">{m.name}</h3>
+                <p className="ministry-desc">{m.desc}</p>
               </div>
-              <h3 className="ministry-name serif">{m.name}</h3>
-              <p className="ministry-desc">{m.desc}</p>
             </div>
           ))}
         </div>
@@ -514,7 +510,7 @@ export default function HomePage() {
             {/* TODO: replace community strip photos with real congregation photos (5 slots: Sunday service, outreach, youth, worship team, fellowship) */}
             <span className="label community-eyebrow-label">Our Community</span>
             <h2 className="community-heading serif">
-              This is what Hutchinson looks like.
+              This is what Hutchinson looks like
             </h2>
           </div>
           <div className="community-header-right reveal reveal-delay-1">
@@ -556,33 +552,70 @@ export default function HomePage() {
 
       {/* ── SECTION 4: UPCOMING EVENTS ── */}
       <section className="events" id="events" aria-label="Upcoming Events">
+        {/* TOP: Headline block */}
         <div className="events-header reveal">
           <span className="label events-eyebrow-label">What&rsquo;s Happening</span>
           <h2 className="events-heading serif">Come. Be part of something.</h2>
         </div>
 
-        <div className="events-list">
-          {[
-            { month: "APR", day: "6",  name: "Palm Sunday Worship",       desc: "A special service to begin Holy Week." },
-            { month: "APR", day: "13", name: "Easter Sunday",              desc: "He is risen. Come celebrate with us." },
-            { month: "APR", day: "19", name: "Community Outreach Day",     desc: "Serving the streets of Montgomery together." },
-            { month: "MAY", day: "2",  name: "Cruising with The Hutch",    desc: "Our 126th Anniversary Dinner Cruise on the Harriott II Riverboat." },
-            { month: "MAY", day: "4",  name: "Women's Day",                desc: "A day of worship, reflection, and sisterhood." },
-          ].map((e, i) => (
-            <div key={e.name} className={`event-row reveal${i > 0 ? ` reveal-delay-${Math.min(i, 3)}` : ""}`}>
-              <div className="event-date" aria-label={`${e.month} ${e.day}`}>
-                <span className="event-month">{e.month}</span>
-                <strong className="event-day serif">{e.day}</strong>
+        {/* MIDDLE: Two-column body */}
+        <div className="events-body">
+          {/* LEFT: Featured event */}
+          <div className="events-featured reveal">
+            <div className="events-featured-img-wrap">
+              {/* TODO: replace with Easter Sunday event photo */}
+              <div className="events-featured-img-overlay" aria-hidden />
+              <div className="events-featured-img-caption">
+                <span className="label">APR 13 &middot; Easter Sunday</span>
+                <h3 className="events-featured-title serif">He is risen. Come celebrate with us.</h3>
               </div>
-              <div className="event-info">
-                <h3 className="event-name serif">{e.name}</h3>
-                <p className="event-desc">{e.desc}</p>
-              </div>
-              <a href="#events" className="event-link">Learn More →</a>
             </div>
-          ))}
+            <div className="events-featured-body">
+              <div className="events-featured-meta">
+                <div className="events-featured-info">
+                  <span className="label events-meta-label">Date</span>
+                  <span className="events-meta-value">Sunday, April 13, 2026</span>
+                </div>
+                <div className="events-featured-info">
+                  <span className="label events-meta-label">Time</span>
+                  <span className="events-meta-value">9AM &amp; 11AM</span>
+                </div>
+                <div className="events-featured-info">
+                  <span className="label events-meta-label">Location</span>
+                  <span className="events-meta-value">860 East Grove Street, Montgomery, AL</span>
+                </div>
+              </div>
+              <a href="#events" className="inline-link inline-link--dark">Learn More →</a>
+            </div>
+          </div>
+
+          {/* DIVIDER: vertical on desktop, horizontal on mobile/tablet */}
+          <div className="events-divider" aria-hidden />
+
+          {/* RIGHT: Event list */}
+          <div className="events-list">
+            {[
+              { month: "APR", day: "6",  name: "Palm Sunday Worship",     desc: "A special service to begin Holy Week." },
+              { month: "APR", day: "19", name: "Community Outreach Day",  desc: "Serving the streets of Montgomery together." },
+              { month: "MAY", day: "2",  name: "Cruising with The Hutch", desc: "Our 126th Anniversary Dinner Cruise on the Harriott II Riverboat." },
+              { month: "MAY", day: "4",  name: "Women's Day",             desc: "A day of worship, reflection, and sisterhood." },
+            ].map((e, i) => (
+              <div key={e.name} className={`event-row reveal${i > 0 ? ` reveal-delay-${Math.min(i, 3)}` : ""}`}>
+                <div className="event-date" aria-label={`${e.month} ${e.day}`}>
+                  <span className="event-month">{e.month}</span>
+                  <strong className="event-day serif">{e.day}</strong>
+                </div>
+                <div className="event-info">
+                  <h3 className="event-name serif">{e.name}</h3>
+                  <p className="event-desc">{e.desc}</p>
+                </div>
+                <a href="#events" className="event-link">Learn More →</a>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* BOTTOM: Calendar link */}
         <div className="events-footer reveal">
           <a href="#events" className="inline-link inline-link--dark">View Full Calendar →</a>
         </div>
