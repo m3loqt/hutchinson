@@ -267,10 +267,11 @@ export default function HomePage() {
             {/* TODO: replace hero-bg with real congregation worship photo — warm, golden light, hands raised preferred */}
             <h1 className="hero-headline animate-ready anim--fade-up anim--800 anim--d2">
               A{" "}
-              Sweet,
-              <br />
-              Sweet{" "}
-              Spirit
+              <em className="heading-em">
+                Sweet,
+                <br />
+                Sweet Spirit
+              </em>
             </h1>
           </div>
 
@@ -337,7 +338,9 @@ export default function HomePage() {
           <div className="pastor-content reveal reveal-delay-1">
             {/* TODO: replace pastor-photo-bg with official portrait of Pastor Cameron Thomas and First Lady Thomas */}
             <span className="label">Pastoral Leadership</span>
-            <h2 className="pastor-name serif">Surrendered and Hopeful</h2>
+            <h2 className="pastor-name serif">
+              <em className="heading-em">Surrendered</em> and <em className="heading-em">Hopeful</em>
+            </h2>
             <p className="pastor-bio">
             That is how Pastor Cameron Thomas signs every letter to this congregation. It is also how he leads. With his whole heart, his whole life, and an unshakeable belief that God is still writing this story.
             </p>
@@ -364,7 +367,9 @@ export default function HomePage() {
         <div className="pulpit-header">
           <div className="pulpit-header-main">
             <span className="label">Sermons</span>
-            <h2 className="pulpit-heading serif">Catch Up On The Sermon</h2>
+            <h2 className="pulpit-heading serif">
+              Catch Up On <em className="heading-em">The Sermon</em>
+            </h2>
             <p className="pulpit-intro">
               Every sermon preached at Hutchinson is here for you. Watch it. Share it. Come back to it whenever you need a word.
             </p>
@@ -397,19 +402,16 @@ export default function HomePage() {
           {[
             {
               title: "When the Wrong Man Walks Free",
-              date: "March 23, 2026",
               verse: "John 18:40",
               image: "/Featured.png",
             },
             {
               title: "When God Prepares the Table",
-              date: "March 16, 2026",
               verse: "Psalm 23:5",
               image: "/Midweek Recharge.png",
             },
             {
               title: "Surrendered and Hopeful",
-              date: "March 9, 2026",
               verse: "Romans 12:1",
               image: "/sermon2.png",
             },
@@ -420,7 +422,6 @@ export default function HomePage() {
                 <img src={s.image} alt="" aria-hidden="true" />
               </div>
               <h3 className="pulpit-card-title serif">{s.title}</h3>
-              <p className="pulpit-card-meta">{s.date}</p>
               <p className="pulpit-card-meta">{s.verse}</p>
               <a
                 href="https://www.youtube.com/@hmbc860"
@@ -442,8 +443,9 @@ export default function HomePage() {
           <span className="label">Ways to Serve</span>
           <div className="ministries-header-row">
             <h2 className="ministries-heading serif">
-              There is a place<br />
-              here for you
+              There is a place
+              <br />
+              <em className="heading-em">here for you</em>
             </h2>
             <div className="ministries-header-right">
               <p className="ministries-intro">For over 125 years, this church has been built by ordinary people who showed up and gave what they had. There is still room at the table and still work to be done. Come find your place in it.
@@ -510,7 +512,7 @@ export default function HomePage() {
             {/* TODO: replace community strip photos with real congregation photos (5 slots: Sunday service, outreach, youth, worship team, fellowship) */}
             <span className="label community-eyebrow-label">Our Community</span>
             <h2 className="community-heading serif">
-              This is what Hutchinson looks like
+              This is what <em className="heading-em">Hutchinson Community</em> looks like
             </h2>
           </div>
           <div className="community-header-right reveal reveal-delay-1">
@@ -555,7 +557,9 @@ export default function HomePage() {
         {/* TOP: Headline block */}
         <div className="events-header reveal">
           <span className="label events-eyebrow-label">What&rsquo;s Happening</span>
-          <h2 className="events-heading serif">Come. Be part of something.</h2>
+          <h2 className="events-heading serif">
+            <em className="heading-em">Join us</em> for something special
+          </h2>
         </div>
 
         {/* MIDDLE: Two-column body */}
@@ -630,7 +634,9 @@ export default function HomePage() {
             <span className="label visit-label">Plan Your Visit</span>
 
             <h2 className="visit-heading serif">
-              We have been<br />waiting for you
+              We have been
+              <br />
+              <em className="heading-em">waiting for you</em>
             </h2>
 
             <p className="visit-body">
@@ -685,8 +691,9 @@ export default function HomePage() {
           <div className="daily-bread-content reveal">
             <span className="label">Our Daily Bread</span>
             <h2 className="daily-bread-heading serif">
-              Grace flows quietly through patience. When you stop striving to fix everything, you begin to
-              see how love already surrounds and carries you forward.
+              <em className="heading-em">Grace</em> flows quietly through patience. When you stop striving to fix
+              everything, you begin to see how <em className="heading-em">love already surrounds</em> and carries you
+              forward.
             </h2>
             <p className="daily-bread-body">
               Start your morning with a short reflection, a verse, or a word chosen to calm and center
